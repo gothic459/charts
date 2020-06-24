@@ -1,14 +1,12 @@
-﻿using LiveCharts.WinForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms.VisualStyles;
 using Color = System.Drawing.Color;
-using System.Linq;
+
 namespace charts
 {
     public partial class Form1 : Form
@@ -20,9 +18,6 @@ namespace charts
             InitializeComponent();
 
         }
-
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -64,10 +59,10 @@ namespace charts
                     nazwy.Add(item.Cells[1].Value.ToString());
                 }
 
-
             }
-            chart.Series.Clear();
 
+
+            chart.Series.Clear();
             chart.Size = new Size(1008, 500);
             chart.Location = new Point(100, 50);
             chart.BackColor = System.Drawing.Color.LightBlue;
@@ -78,7 +73,6 @@ namespace charts
             chartArea.Position.Height = 100;
             chartArea.Position.Y = 0;
             chartArea.AxisX.IsReversed = true;
-
             series1.ChartType = SeriesChartType.RangeBar;
             series1.Name = "wykres";
             chart.Series.Add(series1);
@@ -99,20 +93,18 @@ namespace charts
             };
             List<int> indeksy = new List<int>();
             List<int> ttip = new List<int>();
-
-            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++)
+            int ile_row_count = (dataGridView2.Rows.Count - 1);
+            for (int i = 0; i < ile_row_count; i++)
             {
                 ttip.Add(Int32.Parse(koniec[i]) - Int32.Parse(start[i]));
 
             }
 
 
-
             int index_wykres = 0;
             string czas = "Czas wykonywania: ";
-            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++)
+            for (int i = 0; i < ile_row_count; i++)
             {
-
                 index_wykres = chart.Series["wykres"].Points.AddXY(i, start[i], koniec[i]);
                 chart.Series["wykres"].Points.AddXY(i, start[i], koniec[i]);
                 chart.Series["wykres"].Points[index_wykres].Label = nazwy[i];
@@ -121,20 +113,23 @@ namespace charts
                 indeksy.Add(chart.Series["wykres"].Points.AddXY(i, start[i], koniec[i]));
                 chart.Series["wykres"].Points[indeksy[i]].ToolTip = czas + ttip[i].ToString();
                 chart.Series["wykres"].Points[indeksy[i]].Color = kolorki[i % kolorki.Count];
-
             }
 
             int laczne = ttip.Sum(x => (x));
-
             label1.Text = laczne.ToString();
             SetTxTValue = label1.Text;
             form2.Controls.Add(chart);
+
             form2.Show();
             this.Hide();
 
         }
         private void dataGridView2_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+
+            if (dataGridView2.Rows[e.RowIndex].IsNewRow) { return; }
+
+
 
 
             //error handler dla ujemnych i  nie int w start i koniec
@@ -146,10 +141,18 @@ namespace charts
                 if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || i < 0)
                 {
                     this.dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "tylko dodatnie liczby całkowite";
+                    DialogResult x = new DialogResult();
+                    x = MessageBox.Show("tylko dodanie byczq");
+                    if (x == DialogResult.OK)
+                    {
+                        dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        dataGridView2.EditingControl.Text = string.Empty;
+                        dataGridView2.BeginEdit(true);
+                    }
                     e.Cancel = true;
 
                 }
-                
+
             }
             //error handler dla znakow specjalnych w nazie
             if (e.ColumnIndex == 1)
@@ -158,13 +161,32 @@ namespace charts
 
                 if (!regexItem.IsMatch(Convert.ToString(e.FormattedValue)))
                 {
+                    DialogResult x = new DialogResult();
+                    x = MessageBox.Show("Bez znakow specjalnych");
+                    if (x == DialogResult.OK)
+                    {
+                        dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        dataGridView2.EditingControl.Text = string.Empty;
+                        dataGridView2.BeginEdit(true);
+                    }
                     e.Cancel = true;
-                    MessageBox.Show("bez znakow specjalnych byczq");
+
+
                 }
-                
+
 
             }
 
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            dataGridView2.DataSource = null;
         }
 
 

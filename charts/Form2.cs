@@ -33,5 +33,10 @@ namespace charts
             this.Dispose();
             form1.Show();
         }
+
+        private void buttonClose_2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -31,21 +31,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.buttonClose_2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(485, 646);
+            this.label2.Location = new System.Drawing.Point(482, 585);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(302, 100);
+            this.label2.Size = new System.Drawing.Size(479, 74);
             this.label2.TabIndex = 0;
             this.label2.Text = "label1";
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(12, 646);
+            this.label3.Location = new System.Drawing.Point(12, 585);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(479, 74);
             this.label3.TabIndex = 2;
@@ -53,13 +54,23 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(793, 646);
+            this.button2.Location = new System.Drawing.Point(22, 649);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 51);
+            this.button2.Size = new System.Drawing.Size(556, 68);
             this.button2.TabIndex = 3;
             this.button2.Text = "nowy wykres";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // buttonClose_2
+            // 
+            this.buttonClose_2.Location = new System.Drawing.Point(744, 649);
+            this.buttonClose_2.Name = "buttonClose_2";
+            this.buttonClose_2.Size = new System.Drawing.Size(146, 68);
+            this.buttonClose_2.TabIndex = 4;
+            this.buttonClose_2.Text = "Zakończ";
+            this.buttonClose_2.UseVisualStyleBackColor = true;
+            this.buttonClose_2.Click += new System.EventHandler(this.buttonClose_2_Click);
             // 
             // Form2
             // 
@@ -67,6 +78,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.buttonClose_2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -84,5 +96,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonClose_2;
     }
 }

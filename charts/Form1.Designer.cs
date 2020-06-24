@@ -31,13 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nazwaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.startDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.koniecDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.operacjeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet1 = new charts.DataSet1();
-            this.label1 = new System.Windows.Forms.Label();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operacjeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -68,13 +70,23 @@
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(127, 353);
+            this.button1.Location = new System.Drawing.Point(13, 353);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(442, 76);
             this.button1.TabIndex = 2;
             this.button1.Text = "Narysuj wykres";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(325, 442);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "label1";
+            this.label1.Visible = false;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -123,21 +135,33 @@
             this.dataSet1.DataSetName = "DataSet1";
             this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // label1
+            // buttonExit
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(325, 442);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
-            this.label1.Visible = false;
+            this.buttonExit.Location = new System.Drawing.Point(628, 353);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(75, 76);
+            this.buttonExit.TabIndex = 5;
+            this.buttonExit.Text = "Zakończ";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(547, 353);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 76);
+            this.buttonClear.TabIndex = 6;
+            this.buttonClear.Text = "Wyczyść";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 464);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView2);
@@ -164,6 +188,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn startDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn koniecDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 
