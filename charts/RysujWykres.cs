@@ -3,19 +3,19 @@ using System.Windows.Forms;
 
 namespace charts
 {
-    public partial class Form2 : Form
+    public partial class RysujWykres : Form
     {
-        Form1 form1 = new Form1();
-        public Form2()
+        DaneWykres form1 = new DaneWykres();
+        public RysujWykres()
         {
             InitializeComponent();
-            
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
 
-            label2.Text = Form1.SetTxTValue;
+            //label2.Text = DaneWykres.SetTxTValue;
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -30,13 +30,20 @@ namespace charts
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Dispose();
             form1.Show();
         }
 
         private void buttonClose_2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

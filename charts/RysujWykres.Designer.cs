@@ -1,6 +1,6 @@
 ﻿namespace charts
 {
-    partial class Form2
+    partial class RysujWykres
     {
         /// <summary>
         /// Required designer variable.
@@ -37,20 +37,21 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(482, 585);
+            this.label2.Location = new System.Drawing.Point(375, 585);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(479, 74);
             this.label2.TabIndex = 0;
-            this.label2.Text = "label1";
+            this.label2.Text = "sc";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.Location = new System.Drawing.Point(12, 585);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(479, 74);
+            this.label3.Size = new System.Drawing.Size(357, 74);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Łączny czas operacji: ";
+            this.label3.Text = "Całkowity czas:";
             // 
             // button2
             // 
@@ -72,7 +73,7 @@
             this.buttonClose_2.UseVisualStyleBackColor = true;
             this.buttonClose_2.Click += new System.EventHandler(this.buttonClose_2_Click);
             // 
-            // Form2
+            // RysujWykres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -82,7 +83,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Name = "Form2";
+            this.Name = "RysujWykres";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
@@ -92,10 +93,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonClose_2;
+        public System.Windows.Forms.Label label2;
     }
 }

@@ -283,9 +283,15 @@ namespace charts {
             
             private global::System.Data.DataColumn columnNazwa;
             
-            private global::System.Data.DataColumn columnstart;
+            private global::System.Data.DataColumn columnCzasTrwania_koniec;
             
-            private global::System.Data.DataColumn columnkoniec;
+            private global::System.Data.DataColumn columnPoprzednik_start;
+            
+            private global::System.Data.DataColumn columntest;
+            
+            private global::System.Data.DataColumn columnPoprzednicy;
+            
+            private global::System.Data.DataColumn columntest_combi;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -338,17 +344,41 @@ namespace charts {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn startColumn {
+            public global::System.Data.DataColumn CzasTrwania_koniecColumn {
                 get {
-                    return this.columnstart;
+                    return this.columnCzasTrwania_koniec;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn koniecColumn {
+            public global::System.Data.DataColumn Poprzednik_startColumn {
                 get {
-                    return this.columnkoniec;
+                    return this.columnPoprzednik_start;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn testColumn {
+                get {
+                    return this.columntest;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PoprzednicyColumn {
+                get {
+                    return this.columnPoprzednicy;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn test_combiColumn {
+                get {
+                    return this.columntest_combi;
                 }
             }
             
@@ -389,13 +419,16 @@ namespace charts {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public OperacjeRow AddOperacjeRow(string Nazwa, int start, int koniec) {
+            public OperacjeRow AddOperacjeRow(string Nazwa, int CzasTrwania_koniec, int Poprzednik_start, object test, string Poprzednicy, int test_combi) {
                 OperacjeRow rowOperacjeRow = ((OperacjeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Nazwa,
-                        start,
-                        koniec};
+                        CzasTrwania_koniec,
+                        Poprzednik_start,
+                        test,
+                        Poprzednicy,
+                        test_combi};
                 rowOperacjeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOperacjeRow);
                 return rowOperacjeRow;
@@ -427,8 +460,11 @@ namespace charts {
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
                 this.columnNazwa = base.Columns["Nazwa"];
-                this.columnstart = base.Columns["start"];
-                this.columnkoniec = base.Columns["koniec"];
+                this.columnCzasTrwania_koniec = base.Columns["CzasTrwania_koniec"];
+                this.columnPoprzednik_start = base.Columns["Poprzednik_start"];
+                this.columntest = base.Columns["test"];
+                this.columnPoprzednicy = base.Columns["Poprzednicy"];
+                this.columntest_combi = base.Columns["test_combi"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -438,10 +474,16 @@ namespace charts {
                 base.Columns.Add(this.columnId);
                 this.columnNazwa = new global::System.Data.DataColumn("Nazwa", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNazwa);
-                this.columnstart = new global::System.Data.DataColumn("start", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnstart);
-                this.columnkoniec = new global::System.Data.DataColumn("koniec", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnkoniec);
+                this.columnCzasTrwania_koniec = new global::System.Data.DataColumn("CzasTrwania_koniec", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCzasTrwania_koniec);
+                this.columnPoprzednik_start = new global::System.Data.DataColumn("Poprzednik_start", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPoprzednik_start);
+                this.columntest = new global::System.Data.DataColumn("test", typeof(object), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntest);
+                this.columnPoprzednicy = new global::System.Data.DataColumn("Poprzednicy", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPoprzednicy);
+                this.columntest_combi = new global::System.Data.DataColumn("test_combi", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntest_combi);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("OperacjeKey1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -617,33 +659,81 @@ namespace charts {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int start {
+            public int CzasTrwania_koniec {
                 get {
                     try {
-                        return ((int)(this[this.tableOperacje.startColumn]));
+                        return ((int)(this[this.tableOperacje.CzasTrwania_koniecColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'start\' w tabeli \'Operacje\' to DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'CzasTrwania_koniec\' w tabeli \'Operacje\' to DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableOperacje.startColumn] = value;
+                    this[this.tableOperacje.CzasTrwania_koniecColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int koniec {
+            public int Poprzednik_start {
                 get {
                     try {
-                        return ((int)(this[this.tableOperacje.koniecColumn]));
+                        return ((int)(this[this.tableOperacje.Poprzednik_startColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'koniec\' w tabeli \'Operacje\' to DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'Poprzednik_start\' w tabeli \'Operacje\' to DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableOperacje.koniecColumn] = value;
+                    this[this.tableOperacje.Poprzednik_startColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public object test {
+                get {
+                    try {
+                        return ((object)(this[this.tableOperacje.testColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'test\' w tabeli \'Operacje\' to DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOperacje.testColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Poprzednicy {
+                get {
+                    try {
+                        return ((string)(this[this.tableOperacje.PoprzednicyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'Poprzednicy\' w tabeli \'Operacje\' to DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOperacje.PoprzednicyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int test_combi {
+                get {
+                    try {
+                        return ((int)(this[this.tableOperacje.test_combiColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Wartość z kolumny \'test_combi\' w tabeli \'Operacje\' to DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOperacje.test_combiColumn] = value;
                 }
             }
             
@@ -661,26 +751,62 @@ namespace charts {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsstartNull() {
-                return this.IsNull(this.tableOperacje.startColumn);
+            public bool IsCzasTrwania_koniecNull() {
+                return this.IsNull(this.tableOperacje.CzasTrwania_koniecColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetstartNull() {
-                this[this.tableOperacje.startColumn] = global::System.Convert.DBNull;
+            public void SetCzasTrwania_koniecNull() {
+                this[this.tableOperacje.CzasTrwania_koniecColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IskoniecNull() {
-                return this.IsNull(this.tableOperacje.koniecColumn);
+            public bool IsPoprzednik_startNull() {
+                return this.IsNull(this.tableOperacje.Poprzednik_startColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetkoniecNull() {
-                this[this.tableOperacje.koniecColumn] = global::System.Convert.DBNull;
+            public void SetPoprzednik_startNull() {
+                this[this.tableOperacje.Poprzednik_startColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstestNull() {
+                return this.IsNull(this.tableOperacje.testColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettestNull() {
+                this[this.tableOperacje.testColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPoprzednicyNull() {
+                return this.IsNull(this.tableOperacje.PoprzednicyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPoprzednicyNull() {
+                this[this.tableOperacje.PoprzednicyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Istest_combiNull() {
+                return this.IsNull(this.tableOperacje.test_combiColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Settest_combiNull() {
+                this[this.tableOperacje.test_combiColumn] = global::System.Convert.DBNull;
             }
         }
         
