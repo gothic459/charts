@@ -34,19 +34,23 @@
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.operacjeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet1 = new charts.DataSet1();
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataSet11 = new charts.DataSet1();
             this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.endEdit = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.operacjeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet1 = new charts.DataSet1();
+            this.dataSet11 = new charts.DataSet1();
+            this.dataGridViewButtonColumn5 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nazwaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CzasTrwania_koniec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Poprzednik_start = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.test = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dodaj_pop = new System.Windows.Forms.DataGridViewButtonColumn();
             this.test_combi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.min_value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.operacjeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
@@ -69,7 +73,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(325, 442);
+            this.label1.Location = new System.Drawing.Point(10, 442);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 4;
@@ -108,27 +112,18 @@
             this.nazwaDataGridViewTextBoxColumn,
             this.CzasTrwania_koniec,
             this.Poprzednik_start,
-            this.test,
-            this.test_combi});
+            this.dodaj_pop,
+            this.test_combi,
+            this.min_value});
             this.dataGridView2.DataSource = this.operacjeBindingSource;
             this.dataGridView2.Location = new System.Drawing.Point(13, 12);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView2.Size = new System.Drawing.Size(843, 313);
+            this.dataGridView2.Size = new System.Drawing.Size(843, 285);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView2_CellValidating);
-            // 
-            // operacjeBindingSource
-            // 
-            this.operacjeBindingSource.DataMember = "Operacje";
-            this.operacjeBindingSource.DataSource = this.dataSet1;
-            // 
-            // dataSet1
-            // 
-            this.dataSet1.DataSetName = "DataSet1";
-            this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // dataGridViewButtonColumn1
             // 
@@ -148,11 +143,6 @@
             this.dataGridViewButtonColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn2.Width = 153;
             // 
-            // dataSet11
-            // 
-            this.dataSet11.DataSetName = "DataSet1";
-            this.dataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // dataGridViewButtonColumn3
             // 
             this.dataGridViewButtonColumn3.DataPropertyName = "test";
@@ -170,6 +160,49 @@
             this.dataGridViewButtonColumn4.ReadOnly = true;
             this.dataGridViewButtonColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewButtonColumn4.Width = 153;
+            // 
+            // endEdit
+            // 
+            this.endEdit.Location = new System.Drawing.Point(13, 303);
+            this.endEdit.Name = "endEdit";
+            this.endEdit.Size = new System.Drawing.Size(75, 23);
+            this.endEdit.TabIndex = 7;
+            this.endEdit.Text = "zakoncz wpisywanie";
+            this.endEdit.UseVisualStyleBackColor = true;
+            this.endEdit.Click += new System.EventHandler(this.endEdit_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(243, 442);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "label2";
+            // 
+            // operacjeBindingSource
+            // 
+            this.operacjeBindingSource.DataMember = "Operacje";
+            this.operacjeBindingSource.DataSource = this.dataSet1;
+            // 
+            // dataSet1
+            // 
+            this.dataSet1.DataSetName = "DataSet1";
+            this.dataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataSet11
+            // 
+            this.dataSet11.DataSetName = "DataSet1";
+            this.dataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataGridViewButtonColumn5
+            // 
+            this.dataGridViewButtonColumn5.DataPropertyName = "test";
+            this.dataGridViewButtonColumn5.HeaderText = "dodaj poprzednika";
+            this.dataGridViewButtonColumn5.Name = "dataGridViewButtonColumn5";
+            this.dataGridViewButtonColumn5.ReadOnly = true;
+            this.dataGridViewButtonColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewButtonColumn5.Width = 128;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -206,13 +239,13 @@
             this.Poprzednik_start.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Poprzednik_start.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // test
+            // dodaj_pop
             // 
-            this.test.DataPropertyName = "test";
-            this.test.HeaderText = "dodaj poprzednika";
-            this.test.Name = "test";
-            this.test.ReadOnly = true;
-            this.test.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dodaj_pop.DataPropertyName = "test";
+            this.dodaj_pop.HeaderText = "dodaj poprzednika";
+            this.dodaj_pop.Name = "dodaj_pop";
+            this.dodaj_pop.ReadOnly = true;
+            this.dodaj_pop.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // test_combi
             // 
@@ -221,11 +254,20 @@
             this.test_combi.Name = "test_combi";
             this.test_combi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // min_value
+            // 
+            this.min_value.DataPropertyName = "min_value";
+            this.min_value.HeaderText = "min_value";
+            this.min_value.Name = "min_value";
+            this.min_value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // DaneWykres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(886, 464);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.endEdit);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.label1);
@@ -258,13 +300,17 @@
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
         public System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
+        private System.Windows.Forms.Button endEdit;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nazwaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn CzasTrwania_koniec;
         private System.Windows.Forms.DataGridViewTextBoxColumn Poprzednik_start;
-        private System.Windows.Forms.DataGridViewButtonColumn test;
+        private System.Windows.Forms.DataGridViewButtonColumn dodaj_pop;
         private System.Windows.Forms.DataGridViewTextBoxColumn test_combi;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn min_value;
     }
 }
 

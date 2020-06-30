@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Globalization;
@@ -17,7 +18,6 @@ namespace charts
     public partial class DaneWykres : Form
     {
 
-
         public DaneWykres()
         {
             InitializeComponent();
@@ -25,9 +25,8 @@ namespace charts
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            dataGridView2.Columns["dodaj_pop"].Visible = false;
         }
-
 
         Chart chart = new Chart();
         ChartArea chartArea = new ChartArea();
@@ -36,10 +35,11 @@ namespace charts
         public List<string> czas_t = new List<string>();
         public List<string> nazwy = new List<string>();
         public static string SetTxTValue = "";
-        List<string> combined = new List<string>();
         private string fname;
-
         public List<int> max_val = new List<int>();
+
+        List<string> critical = new List<string>();
+
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -47,14 +47,14 @@ namespace charts
             var form2 = new RysujWykres();
             var form3 = new DodajPoprzednika();
 
+
             foreach (DataGridViewRow item in dataGridView2.Rows)
             {
 
                 item.ReadOnly = true;
-                if (item.Cells[2].Value != null)
+                if (item.Cells[5].Value != null)
                 {
-                    czas_t.Add(item.Cells[2].Value.ToString());
-
+                    czas_t.Add(item.Cells[5].Value.ToString());
                 }
                 if (item.Cells[1].Value != null)
                 {
@@ -73,7 +73,6 @@ namespace charts
                     }
 
                 }
-
 
             }
 
@@ -111,33 +110,47 @@ namespace charts
 
             List<int> ttip = new List<int>();
 
-            int ile_row_count = (dataGridView2.Rows.Count - 1);
+            int ile_row_count = (dataGridView2.Rows.Count);
 
             int index_wykres = 0;
 
+            for (int i = 1; i < dataGridView2.Rows.Count; i++)
+            {
+                DataGridViewRow dr = dataGridView2.Rows[i];
+                DataGridViewRow dr1 = dataGridView2.Rows[i - 1];
+                if (dr1.Cells[3].Value == null)
+                {
+                    dr1.Cells[3].Value = 0;
+                }
 
+                if (dr.Cells[3] != dr1.Cells[3])
+                {
+                    critical.Add(dr.Cells[1].Value.ToString());
+                }
 
-            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++)
+            }
+            form2.crit.DataSource = critical;
+
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
                 var ct = czas_t.ConvertAll(int.Parse);
-
                 ttip.Add(ct[i]);
+
+
             }
 
             string czas = "Czas wykonywania: ";
-            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++)
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
                 index_wykres = chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
+                indeksy.Add(chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString()));
 
                 chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
-
                 chart.Series["wykres"].Points[index_wykres].Label = nazwy[i];
                 chart.Series["wykres"].Points[index_wykres].AxisLabel = nazwy[i];
-                indeksy.Add(chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString()));
                 chart.Series["wykres"].Points[indeksy[i]].ToolTip = czas + ttip[i].ToString();
                 chart.Series["wykres"].Points[indeksy[i]].Color = kolorki[i % kolorki.Count];
             }
-
 
             label1.Text = ttip.ToString();
             SetTxTValue = label1.Text;
@@ -233,6 +246,11 @@ namespace charts
         private void buttonClear_Click(object sender, EventArgs e)
         {
             dataGridView2.DataSource = null;
+            dataGridView2.Columns["dodaj_pop"].Visible = false;
+
+            this.dataGridView2.AllowUserToAddRows = true;
+
+
         }
 
 
@@ -242,6 +260,7 @@ namespace charts
 
             DataGridViewRow cur = dataGridView2.CurrentRow;
             DodajPoprzednika form3 = new DodajPoprzednika();
+
             form3.curRow = cur;
             if (e.RowIndex != 0)
             {
@@ -253,8 +272,7 @@ namespace charts
                     {
                         int n = form3.dataGridView1_pop.Rows.Add();
                         form3.dataGridView1_pop.Rows[n].Cells[0].Value = row.Cells[1].Value.ToString(); // dodaj nazwy
-                        form3.dataGridView1_pop.Rows[n].Cells[1].Value = row.Cells[2].Value.ToString(); // dodaj wartosci
-
+                        form3.dataGridView1_pop.Rows[n].Cells[1].Value = row.Cells[5].Value.ToString(); // dodaj wartosci
                     }
 
                 }
@@ -262,11 +280,29 @@ namespace charts
             }
 
             form3.Show();
+        }
+
+        private void endEdit_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Columns["dodaj_pop"].Visible = true;
+
+            dataGridView2.AllowUserToAddRows = false;
+
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                row.Cells[5].Value = row.Cells[2].Value.ToString();
+
+            }
 
         }
 
 
-        //critical path = calkowita dlugosc - czastrwania_koniec dla kazdego PO KOLEI, pozniej if wynik tego == poprzednik_start  wtedy nazda idzie do critical path else dawaj dalej
+
+
+
+
+
+        //critical path = calkowita dlugosc - czastrwania_koniec dla kazdego PO KOLEI, pozniej if wynik tego == poprzednik_start  wtedy nazwa idzie do critical path else dawaj dalej
     }
 }
 /*                //jesli nie jest new row ani nie jest == current row wtedy dodaj pozostale

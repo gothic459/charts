@@ -32,6 +32,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonClose_2 = new System.Windows.Forms.Button();
+            this.crit = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label2
@@ -65,7 +66,7 @@
             // 
             // buttonClose_2
             // 
-            this.buttonClose_2.Location = new System.Drawing.Point(744, 649);
+            this.buttonClose_2.Location = new System.Drawing.Point(850, 649);
             this.buttonClose_2.Name = "buttonClose_2";
             this.buttonClose_2.Size = new System.Drawing.Size(146, 68);
             this.buttonClose_2.TabIndex = 4;
@@ -73,12 +74,21 @@
             this.buttonClose_2.UseVisualStyleBackColor = true;
             this.buttonClose_2.Click += new System.EventHandler(this.buttonClose_2_Click);
             // 
+            // crit
+            // 
+            this.crit.FormattingEnabled = true;
+            this.crit.Location = new System.Drawing.Point(604, 625);
+            this.crit.Name = "crit";
+            this.crit.Size = new System.Drawing.Size(176, 95);
+            this.crit.TabIndex = 5;
+            // 
             // RysujWykres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.crit);
             this.Controls.Add(this.buttonClose_2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
@@ -97,5 +107,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonClose_2;
         public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.ListBox crit;
     }
 }
