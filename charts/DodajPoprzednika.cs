@@ -46,10 +46,11 @@ namespace charts
             int max = getmax.Max();
 
 
+
+
             curRow.Cells[3].Value = max.ToString();
-
             curRow.Cells[5].Value = val + max;
-
+            curRow.Cells[6].Value = getmax.Count();
 
             this.Close();
 

@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Media.Animation;
 using Color = System.Drawing.Color;
 
 namespace charts
@@ -38,9 +39,9 @@ namespace charts
         private string fname;
         public List<int> max_val = new List<int>();
 
+        List<int> latestart = new List<int>();
+
         List<string> critical = new List<string>();
-
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -114,22 +115,10 @@ namespace charts
 
             int index_wykres = 0;
 
-            for (int i = 1; i < dataGridView2.Rows.Count; i++)
-            {
-                DataGridViewRow dr = dataGridView2.Rows[i];
-                DataGridViewRow dr1 = dataGridView2.Rows[i - 1];
-                if (dr1.Cells[3].Value == null)
-                {
-                    dr1.Cells[3].Value = 0;
-                }
 
-                if (dr.Cells[3] != dr1.Cells[3])
-                {
-                    critical.Add(dr.Cells[1].Value.ToString());
-                }
 
-            }
-            form2.crit.DataSource = critical;
+
+
 
             for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
@@ -137,17 +126,50 @@ namespace charts
                 ttip.Add(ct[i]);
 
 
+
+
             }
+            int y = 0;
+            int z = 0;
+            //czas t == koniec
+            //poprzednikkoniec == start
+            while (y < dataGridView2.Rows.Count - 1 || z < dataGridView2.Rows.Count - 1)
+            {
+                var ct = czas_t.ConvertAll(int.Parse);
+                var pk = poprzednikKoniec.ConvertAll(int.Parse);
+
+                if (pk[y + 1] == ct[z])
+                {
+
+                    critical.Add(nazwy[z]);
+                    critical.Add(nazwy[y + 1]);
+                    y++;
+                    z = y;
+                }
+                else
+                {
+                    y++;
+                }
+
+            }
+
+
+
+            List<string> critical_no_dupes = critical.Distinct().ToList();
+            form2.crit.DataSource = critical_no_dupes;
 
             string czas = "Czas wykonywania: ";
             for (int i = 0; i < dataGridView2.Rows.Count; i++)
             {
-                index_wykres = chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
-                indeksy.Add(chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString()));
 
                 chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
+                index_wykres = chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
+
                 chart.Series["wykres"].Points[index_wykres].Label = nazwy[i];
                 chart.Series["wykres"].Points[index_wykres].AxisLabel = nazwy[i];
+
+                indeksy.Add(chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString()));
+
                 chart.Series["wykres"].Points[indeksy[i]].ToolTip = czas + ttip[i].ToString();
                 chart.Series["wykres"].Points[indeksy[i]].Color = kolorki[i % kolorki.Count];
             }
@@ -285,11 +307,12 @@ namespace charts
         private void endEdit_Click(object sender, EventArgs e)
         {
             dataGridView2.Columns["dodaj_pop"].Visible = true;
-
             dataGridView2.AllowUserToAddRows = false;
+
 
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
+
                 row.Cells[5].Value = row.Cells[2].Value.ToString();
 
             }
