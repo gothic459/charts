@@ -5,6 +5,22 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "charts", "charts\charts.csproj", "{D64D2BA6-9AE2-44FD-9EE6-BC365E631BBE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E9B62784-2170-4821-B972-69336E1BEA98}"
+	ProjectSection(SolutionItems) = preProject
+		..\wykresy\wykresy\autorzy.cs = ..\wykresy\wykresy\autorzy.cs
+		..\wykresy\wykresy\autorzy.Designer.cs = ..\wykresy\wykresy\autorzy.Designer.cs
+		..\wykresy\wykresy\autorzy.resx = ..\wykresy\wykresy\autorzy.resx
+		..\wykresy\wykresy\DaneWykres.cs = ..\wykresy\wykresy\DaneWykres.cs
+		..\wykresy\wykresy\DaneWykres.Designer.cs = ..\wykresy\wykresy\DaneWykres.Designer.cs
+		..\wykresy\wykresy\DaneWykres.resx = ..\wykresy\wykresy\DaneWykres.resx
+		..\wykresy\wykresy\DodajPoprzednika.cs = ..\wykresy\wykresy\DodajPoprzednika.cs
+		..\wykresy\wykresy\DodajPoprzednika.Designer.cs = ..\wykresy\wykresy\DodajPoprzednika.Designer.cs
+		..\wykresy\wykresy\DodajPoprzednika.resx = ..\wykresy\wykresy\DodajPoprzednika.resx
+		..\wykresy\wykresy\RysujWykres.cs = ..\wykresy\wykresy\RysujWykres.cs
+		..\wykresy\wykresy\RysujWykres.Designer.cs = ..\wykresy\wykresy\RysujWykres.Designer.cs
+		..\wykresy\wykresy\RysujWykres.resx = ..\wykresy\wykresy\RysujWykres.resx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

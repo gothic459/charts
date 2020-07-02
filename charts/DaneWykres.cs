@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Media.Animation;
@@ -27,58 +28,77 @@ namespace charts
         private void Form1_Load(object sender, EventArgs e)
         {
             dataGridView2.Columns["dodaj_pop"].Visible = false;
+            //dataGridView2.Columns["CzasTrwania_koniec"].DefaultCellStyle.NullValue = "0";
+            dataGridView2.Columns["Poprzednik_start"].DefaultCellStyle.NullValue = "0";
+            dataGridView2.Columns["test_combi"].DefaultCellStyle.NullValue = "0";
         }
 
-        Chart chart = new Chart();
-        ChartArea chartArea = new ChartArea();
-        Series series1 = new Series();
-        List<string> poprzednikKoniec = new List<string>();
+        public Chart chart = new Chart();
+        private readonly ChartArea chartArea = new ChartArea();
+        readonly Series series1 = new Series();
+        readonly List<string> poprzednikKoniec = new List<string>();
         public List<string> czas_t = new List<string>();
         public List<string> nazwy = new List<string>();
+        readonly List<string> critical = new List<string>();
         public static string SetTxTValue = "";
         private string fname;
-        public List<int> max_val = new List<int>();
+        List<Obiekt> operacja = new List<Obiekt>();
 
-        List<int> latestart = new List<int>();
-
-        List<string> critical = new List<string>();
 
         private void button1_Click(object sender, EventArgs e)
         {
             var form2 = new RysujWykres();
             var form3 = new DodajPoprzednika();
+            List<string> ttip = new List<string>();
+            dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
 
             foreach (DataGridViewRow item in dataGridView2.Rows)
             {
 
                 item.ReadOnly = true;
-                if (item.Cells[5].Value != null)
+                if (item.Cells[5].Value == null || string.IsNullOrEmpty(item.Cells[5].Value.ToString()) || item.Cells[5].Value == DBNull.Value)
+                {
+                    czas_t.Add("0");
+
+
+                }
+                else if (item.Cells[5].Value != null)
                 {
                     czas_t.Add(item.Cells[5].Value.ToString());
+
                 }
-                if (item.Cells[1].Value != null)
+
+
+
+                if (item.Cells[1].Value == null || string.IsNullOrEmpty(item.Cells[1].Value.ToString()) || item.Cells[1].Value == DBNull.Value)
+                {
+                    nazwy.Add("0");
+                }
+                else if (item.Cells[1].Value != null)
                 {
                     nazwy.Add(item.Cells[1].Value.ToString());
                 }
 
-                if (item.Cells[3].Value != null)
+                if (item.Cells[3].Value == null || string.IsNullOrEmpty(item.Cells[3].Value.ToString()) || item.Cells[3].Value == DBNull.Value)
                 {
-                    if (string.IsNullOrEmpty(item.Cells[3].Value.ToString()))
-                    {
-                        poprzednikKoniec.Add("0");
-                    }
-                    else
-                    {
-                        poprzednikKoniec.Add(item.Cells[3].Value.ToString());
-                    }
+
+                    poprzednikKoniec.Add("0");
+                    ttip.Add("0");
 
                 }
+                else if (item.Cells[3].Value != null)
+                {
+                    poprzednikKoniec.Add(item.Cells[3].Value.ToString());
+                    ttip.Add(item.Cells[3].Value.ToString());
+                }
+
+
+
 
             }
 
-            chart.Series.Clear();
-            chart.ChartAreas.Clear();
+
             chart.Size = new Size(1008, 500);
             chart.Location = new Point(100, 50);
             chart.BackColor = System.Drawing.Color.LightBlue;
@@ -107,169 +127,163 @@ namespace charts
                 Color.Orange,
                 Color.Yellow
             };
+
+
             List<int> indeksy = new List<int>();
-
-            List<int> ttip = new List<int>();
-
-            int ile_row_count = (dataGridView2.Rows.Count);
-
             int index_wykres = 0;
 
 
-
-
-
-
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
-            {
-                var ct = czas_t.ConvertAll(int.Parse);
-                ttip.Add(ct[i]);
-
-
-
-
-            }
-            int y = 0;
-            int z = 0;
+            var ct = czas_t.ConvertAll(int.Parse);
+            var pk = poprzednikKoniec.ConvertAll(int.Parse);
             //czas t == koniec
             //poprzednikkoniec == start
-            while (y < dataGridView2.Rows.Count - 1 || z < dataGridView2.Rows.Count - 1)
+            if (nazwy.Count > 0)
             {
-                var ct = czas_t.ConvertAll(int.Parse);
-                var pk = poprzednikKoniec.ConvertAll(int.Parse);
+                critical.Add(nazwy[0]);
+            }
+            else
+            {
+                critical.Add("0");
+            }
+            int i = 1;
+            int j = 0;
 
-                if (pk[y + 1] == ct[z])
+            while (i < dataGridView2.Rows.Count)
+            {
+                if (pk[i] - ct[j] == 0)
                 {
-
-                    critical.Add(nazwy[z]);
-                    critical.Add(nazwy[y + 1]);
-                    y++;
-                    z = y;
+                    critical.Add(nazwy[i]);
+                    j = i;
+                    i++;
                 }
-                else
+                else if (pk[i] - ct[j] != 0)
                 {
-                    y++;
+                    i++;
                 }
 
             }
 
 
+
+
+
+            /*
+                        try
+                        {
+                            critical.Add(nazwy[0]);
+                            for (int i = 1; i < dataGridView2.Rows.Count-1; i++)
+                            {
+
+                                for (int j = 0; j < dataGridView2.Rows.Count-1; j++)
+                                {
+
+                                    if (ct[i]==pk[j])
+                                    {
+
+                                        critical.Add(nazwy[i]);
+                                        j = i;
+                                        break;
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                        catch (ArgumentOutOfRangeException ex)
+                        {
+
+                            string error = ex.Message;
+                            var result = MessageBox.Show("o ty psujo najgorsza", "Błąd indeksowania", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                            if (result == DialogResult.Yes)
+                            {
+                                MessageBox.Show("haha ale psuja zepsuł");
+                                this.Close();
+                            }
+
+                        }
+            */
 
             List<string> critical_no_dupes = critical.Distinct().ToList();
-            form2.crit.DataSource = critical_no_dupes;
 
-            string czas = "Czas wykonywania: ";
-            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+            var crit_no_dupesSep = String.Join("->", critical_no_dupes.ToList());
+
+            form2.critBox.Text = crit_no_dupesSep;
+
+
+
+            string czas = "Najwcześniejszy początek: ";
+            for (int k = 0; k < dataGridView2.Rows.Count; k++)
             {
 
-                chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
-                index_wykres = chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString());
+                chart.Series["wykres"].Points.AddXY(k, poprzednikKoniec[k].ToString(), czas_t[k].ToString());
+                index_wykres = chart.Series["wykres"].Points.AddXY(k, poprzednikKoniec[k].ToString(), czas_t[k].ToString());
 
-                chart.Series["wykres"].Points[index_wykres].Label = nazwy[i];
-                chart.Series["wykres"].Points[index_wykres].AxisLabel = nazwy[i];
 
-                indeksy.Add(chart.Series["wykres"].Points.AddXY(i, poprzednikKoniec[i].ToString(), czas_t[i].ToString()));
+                chart.Series["wykres"].Points[index_wykres].AxisLabel = nazwy[k];
+                chart.Series["wykres"].Points[index_wykres].Label = nazwy[k];
 
-                chart.Series["wykres"].Points[indeksy[i]].ToolTip = czas + ttip[i].ToString();
-                chart.Series["wykres"].Points[indeksy[i]].Color = kolorki[i % kolorki.Count];
+                indeksy.Add(chart.Series["wykres"].Points.AddXY(k, poprzednikKoniec[k].ToString(), czas_t[k].ToString()));
+
+                chart.Series["wykres"].Points[indeksy[k]].ToolTip = czas + ttip[k];
+                chart.Series["wykres"].Points[indeksy[k]].Color = kolorki[k % kolorki.Count];
             }
 
-            label1.Text = ttip.ToString();
-            SetTxTValue = label1.Text;
+            //label1.Text = ttip.ToString();
+            // SetTxTValue = label1.Text;
 
-            int calk = czas_t.Max(x => int.Parse(x));
+            int calk;
+            if (czas_t.Any())
+            {
+                calk = czas_t.Max(x => int.Parse(x));
 
+            }
+            else
+            {
+                calk = 0;
+            }
 
             form2.label2.Text = calk.ToString();
+
 
             form2.Controls.Add(chart);
 
             form2.Show();
 
+
             fname = Environment.CurrentDirectory + "\\wykres.png";
             this.chart.SaveImage(fname, ChartImageFormat.Png);
-            //Hide();
+
+            Hide();
 
         }
-        private void dataGridView2_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+
+
+        private void dataGridView2_DataError(object sender, DataGridViewDataErrorEventArgs anError)
         {
-
-            if (dataGridView2.Rows[e.RowIndex].IsNewRow) { return; }
-
-            //error handler dla ujemnych i  nie int w poprzednikKoniec i czas_t
-            if (e.ColumnIndex == 2)
-            {
-                int i;
-                dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "";
-
-                if (!int.TryParse(Convert.ToString(e.FormattedValue), out i) || i < 0)
-                {
-                    dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "tylko dodatnie liczby całkowite byczq";
-                    DialogResult x = new DialogResult();
-
-                    x = MessageBox.Show("tylko dodanie byczq");
-                    if (x == DialogResult.OK)
-                    {
-                        dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                        dataGridView2.BeginEdit(true);
-                        dataGridView2.EditingControl.Text = string.Empty;
-                        dataGridView2.CancelEdit();
-                    }
-                    e.Cancel = true;
-
-                }
-
-            }
-            //error handler dla znakow specjalnych w nazie
-            if (e.ColumnIndex == 1)
-            {
-                var regexItem = new Regex("^[a-zA-Z0-9 ]*$");
-
-                if (!regexItem.IsMatch(Convert.ToString(e.FormattedValue)))
-                {
-                    DialogResult x = new DialogResult();
-                    x = MessageBox.Show("Bez znakow specjalnych");
-                    if (x == DialogResult.OK)
-                    {
-                        dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                        dataGridView2.EditingControl.Text = string.Empty;
-                        dataGridView2.BeginEdit(true);
-                    }
-                    e.Cancel = true;
-
-
-                }
-
-
-            }
+            DataGridView view = (DataGridView)sender;
+            view.Rows[anError.RowIndex].Cells[anError.ColumnIndex].ErrorText = "wprowadz prawidlowe wartosci";
 
         }
-
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            /*   if (e.ColumnIndex == 4)
-               {
-                   Form form3 = new DodajPoprzednika();
-                   form3.MdiParent = this.MdiParent;
 
-                   //form3.checkedListBox1.Items.Add(dataGridView2.Rows[0].Cells[1].Value);
-                   form3.ShowDialog();
-               }
-            */
         }
 
 
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
+
             Close();
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            chart.Series.Remove(series1);
+            chart.ChartAreas.Clear();
             dataGridView2.DataSource = null;
             dataGridView2.Columns["dodaj_pop"].Visible = false;
-
             this.dataGridView2.AllowUserToAddRows = true;
 
 
@@ -279,13 +293,17 @@ namespace charts
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            DataGridViewRow cur = dataGridView2.CurrentRow;
-            DodajPoprzednika form3 = new DodajPoprzednika();
-
-            form3.curRow = cur;
-            if (e.RowIndex != 0)
+            if (e.RowIndex != -1)
             {
+                DataGridViewRow cur = dataGridView2.CurrentRow;
+                DodajPoprzednika form3 = new DodajPoprzednika
+                {
+                    curRow = cur
+                };
+
+
+
+
 
                 foreach (DataGridViewRow row in dataGridView2.Rows)
                 {
@@ -298,50 +316,115 @@ namespace charts
                     }
 
                 }
+                form3.Show();
+
+                cur.Cells[4].Style.BackColor = Color.Chartreuse;
+                cur.Cells[4].Style.ForeColor = Color.Green;
+
+                cur.Cells[4].Value = "dodano!";
+
 
             }
 
-            form3.Show();
+
+
         }
+        private void dataGridView2_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            DataGridViewRow row = dataGridView2.Rows[e.RowIndex];
+            row.ErrorText = "";
+
+
+            if (dataGridView2.Rows[e.RowIndex].IsNewRow) { return; }
+
+
+            if (e.ColumnIndex == 2)
+            {
+                if (!int.TryParse(Convert.ToString(e.FormattedValue), out int i) || i < 0)
+                {
+                    e.Cancel = true;
+                    row.ErrorText = "Wprowadź prawidłowe DODATNIE LICZBY całkowite w polu czas trwania";
+
+                    dataGridView2.Rows[e.RowIndex].Cells[2].Value = "0";
+                    dataGridView2.BeginEdit(true);
+                }
+                else
+                {
+                    row.ErrorText = string.Empty;
+                }
+
+                if (e.ColumnIndex == 1)
+                {
+                    var regexItem = new Regex("^[a-zA-Z0-9 ]*$");
+
+                    if (!regexItem.IsMatch(Convert.ToString(e.FormattedValue)))
+                    {
+
+                        e.Cancel = true;
+                        row.ErrorText = "Wprowadź prawidłowe ZNAKI w polu nazwa";
+
+                        dataGridView2.Rows[e.RowIndex].Cells[1].Value = "0";
+                        dataGridView2.BeginEdit(true);
+                    }
+                    else
+                    {
+                        row.ErrorText = string.Empty;
+                    }
+
+                }
+            }
+        }
+
 
         private void endEdit_Click(object sender, EventArgs e)
         {
             dataGridView2.Columns["dodaj_pop"].Visible = true;
+            dataGridView2.Rows[0].Cells[4].Value = "dodano!";
+            dataGridView2.Rows[0].Cells[4].Style.BackColor = Color.Chartreuse;
             dataGridView2.AllowUserToAddRows = false;
 
 
             foreach (DataGridViewRow row in dataGridView2.Rows)
             {
+                if (row.Cells[2].Value == null || string.IsNullOrEmpty(row.Cells[2].Value.ToString()) || row.Cells[2].Value == DBNull.Value)
+                {
+                    row.Cells[5].Value = "0";
 
-                row.Cells[5].Value = row.Cells[2].Value.ToString();
+                }
+                else
+                {
+                    row.Cells[5].Value = row.Cells[2].Value.ToString();
+
+                }
+
+                if (row.Cells[1].Value == null || string.IsNullOrEmpty(row.Cells[1].Value.ToString()) || row.Cells[1].Value == DBNull.Value)
+                {
+                    row.Cells[1].Value = "0";
+                }
 
             }
 
         }
 
+        private void dataGridview2_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["Poprzednik_start"].Value = "0";
+            e.Row.Cells["test_combi"].Value = "0";
+        }
 
+        private void instrukcjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string howto = "1.Należy uzupełnić kolumny Nazwa oraz Czas Trwania\n\n2.Należy wcisnąć przycisk 'zatwierdź dane', przez co tabela " +
+                "powinna rozszerzyć się o kolejną kolumnę.\n\n3.Należy dodawać poprzedników(idąc od góry do dołu) w odpowiednich rzędach, klikając na przycisk w kolumnie 'dodaj poprzednika'\n\n" +
+                "4. Po dodaniu poprzedników, należy wcisnąć przycisk 'Rysuj'.\n ";
+            MessageBox.Show(howto, "Instrukcja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
-
-
-
-
-        //critical path = calkowita dlugosc - czastrwania_koniec dla kazdego PO KOLEI, pozniej if wynik tego == poprzednik_start  wtedy nazwa idzie do critical path else dawaj dalej
+        private void autorzyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aut = new Autorzy();
+            aut.Show();
+        }
     }
 }
-/*                //jesli nie jest new row ani nie jest == current row wtedy dodaj pozostale
-                DataGridViewCell cur_row = dataGridView2.CurrentRow.Cells[4];
-                string current = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                string cur_value = dataGridView2.CurrentRow.Cells[3].Value.ToString();
 
-                foreach (DataGridViewRow item in dataGridView2.Rows)
-                {
-                    if ((item.Cells[1].Value != null) && (item.Cells[1].Value.ToString() != current) && !(item.IsNewRow))
-                    {
-
-                        
-                        
-                    }
-
-                }
-
-*/

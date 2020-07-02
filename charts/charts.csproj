@@ -113,6 +113,13 @@
     <Compile Include="DaneWykres.Designer.cs">
       <DependentUpon>DaneWykres.cs</DependentUpon>
     </Compile>
+    <Compile Include="autorzy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="autorzy.Designer.cs">
+      <DependentUpon>autorzy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="obiekt.cs" />
     <Compile Include="RysujWykres.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +136,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DaneWykres.resx">
       <DependentUpon>DaneWykres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="autorzy.resx">
+      <DependentUpon>autorzy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RysujWykres.resx">
       <DependentUpon>RysujWykres.cs</DependentUpon>

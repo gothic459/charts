@@ -32,13 +32,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonClose_2 = new System.Windows.Forms.Button();
-            this.crit = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.critBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(375, 585);
+            this.label2.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(240, 542);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(479, 74);
             this.label2.TabIndex = 0;
@@ -47,10 +48,10 @@
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Tahoma", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(12, 585);
+            this.label3.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(15, 542);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(357, 74);
+            this.label3.Size = new System.Drawing.Size(237, 53);
             this.label3.TabIndex = 2;
             this.label3.Text = "Całkowity czas:";
             // 
@@ -74,13 +75,25 @@
             this.buttonClose_2.UseVisualStyleBackColor = true;
             this.buttonClose_2.Click += new System.EventHandler(this.buttonClose_2_Click);
             // 
-            // crit
+            // label1
             // 
-            this.crit.FormattingEnabled = true;
-            this.crit.Location = new System.Drawing.Point(604, 625);
-            this.crit.Name = "crit";
-            this.crit.Size = new System.Drawing.Size(176, 95);
-            this.crit.TabIndex = 5;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 15F);
+            this.label1.Location = new System.Drawing.Point(18, 605);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 24);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Droga krytyczna: ";
+            // 
+            // critBox
+            // 
+            this.critBox.BackColor = System.Drawing.SystemColors.Control;
+            this.critBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.critBox.Font = new System.Drawing.Font("Tahoma", 15F);
+            this.critBox.Location = new System.Drawing.Point(173, 605);
+            this.critBox.Name = "critBox";
+            this.critBox.Size = new System.Drawing.Size(791, 25);
+            this.critBox.TabIndex = 7;
             // 
             // RysujWykres
             // 
@@ -88,17 +101,19 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Controls.Add(this.crit);
+            this.Controls.Add(this.critBox);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonClose_2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Name = "RysujWykres";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form2";
+            this.Text = "Wykres";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -107,6 +122,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonClose_2;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.ListBox crit;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox critBox;
     }
 }

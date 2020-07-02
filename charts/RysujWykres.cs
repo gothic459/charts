@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace charts
 {
     public partial class RysujWykres : Form
     {
-        DaneWykres form1 = new DaneWykres();
+        readonly DaneWykres form1 = new DaneWykres();
         public RysujWykres()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace charts
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             form1.Close();
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
